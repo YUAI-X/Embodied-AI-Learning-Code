@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: so101_description
+    relative_path: urdf/so101.urdf.xacro
+    xacro_args: use_mock_hardware:=true
+  srdf:
+    relative_path: config/so101.srdf
+  CONFIG:
+    author_name: SO-101 Course Maintainer
+    author_email: maintainer@example.com
+    generated_timestamp: 2026-08-17 00:00:00.000000

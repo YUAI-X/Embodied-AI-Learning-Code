@@ -1,0 +1,6 @@
+rgbd_camera_publisher:
+  ros__parameters:
+    width: 640
+    height: 480
+    fps: 15.0
+    depth_m: 0.45

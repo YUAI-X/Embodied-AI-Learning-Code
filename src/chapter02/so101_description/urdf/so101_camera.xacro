@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="so101_camera" params="parent">
+    <!--
+      这里只增加不可见坐标系，不虚构一种相机外壳。这样默认显示仍是官方
+      SO-101 follower 原始外形，同时 2.4/2.5 可继续讲 RGB-D 与 optical frame。
+    -->
+    <link name="camera_link"/>
+    <joint name="camera_mount_joint" type="fixed">
+      <parent link="${parent}"/><child link="camera_link"/>
+      <origin xyz="0.035 0 0.045" rpy="0 0 0"/>
+    </joint>
+
+    <!-- ROS 光学坐标约定：x 向右、y 向下、z 向前。 -->
+    <link name="camera_color_optical_frame"/>
+    <joint name="camera_color_optical_joint" type="fixed">
+      <parent link="camera_link"/><child link="camera_color_optical_frame"/>
+      <origin xyz="0.02 0 0" rpy="-1.570796 0 -1.570796"/>
+    </joint>
+    <link name="camera_depth_optical_frame"/>
+    <joint name="camera_depth_optical_joint" type="fixed">
+      <parent link="camera_color_optical_frame"/><child link="camera_depth_optical_frame"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+  </xacro:macro>
+</robot>

@@ -1,0 +1,12 @@
+# Goal：关节名、目标位置（弧度）和期望运动时间（秒）
+string[] joint_names
+float64[] positions
+float64 duration
+---
+# Result：任务是否成功，以及适合直接展示给学员的说明
+bool success
+string message
+---
+# Feedback：0~1 的进度和当前关节位置
+float32 progress
+float64[] current_positions

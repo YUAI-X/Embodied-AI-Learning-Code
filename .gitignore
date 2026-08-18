@@ -1,0 +1,11 @@
+build/
+install/
+log/
+.pytest_cache/
+__pycache__/
+*.pyc
+*.bag
+rosbag2_*/
+outputs/
+*.png
+!docs/images/*.png

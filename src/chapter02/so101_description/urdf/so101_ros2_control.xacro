@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="so101_ros2_control" params="use_mock_hardware:=true">
+    <ros2_control name="SO101System" type="system">
+      <hardware>
+        <!-- 本课程只使用 Mock。真机不能直接复用此插件。 -->
+        <plugin>mock_components/GenericSystem</plugin>
+        <param name="calculate_dynamics">false</param>
+      </hardware>
+      <xacro:macro name="position_joint" params="name initial:=0.0">
+        <joint name="${name}">
+          <command_interface name="position"/>
+          <state_interface name="position"><param name="initial_value">${initial}</param></state_interface>
+          <state_interface name="velocity"/>
+        </joint>
+      </xacro:macro>
+      <xacro:position_joint name="shoulder_pan"/>
+      <xacro:position_joint name="shoulder_lift" initial="-0.45"/>
+      <xacro:position_joint name="elbow_flex" initial="0.9"/>
+      <xacro:position_joint name="wrist_flex" initial="-0.45"/>
+      <xacro:position_joint name="wrist_roll"/>
+      <xacro:position_joint name="gripper" initial="0.6"/>
+    </ros2_control>
+  </xacro:macro>
+</robot>

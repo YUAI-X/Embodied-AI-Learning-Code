@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="so101">
+  <!--
+    主体直接包含 TheRobotStudio 官方 new-calibration SO-101 follower 模型。
+    本文件只叠加课程需要的 tool0、RGB-D 坐标系与 ros2_control Mock 接口。
+  -->
+  <xacro:arg name="use_mock_hardware" default="true"/>
+
+  <xacro:include filename="$(find so101_description)/urdf/so101_official.urdf.xacro"/>
+  <xacro:include filename="$(find so101_description)/urdf/so101_macros.xacro"/>
+  <xacro:include filename="$(find so101_description)/urdf/so101_camera.xacro"/>
+  <xacro:include filename="$(find so101_description)/urdf/so101_ros2_control.xacro"/>
+
+  <!-- tool0 与官方 gripper_frame_link 重合，作为课程统一使用的末端名称。 -->
+  <link name="tool0"/>
+  <joint name="tool0_joint" type="fixed">
+    <parent link="gripper_frame_link"/>
+    <child link="tool0"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- 相机是课程扩展件，不属于 SO-101 官方主体 STL。 -->
+  <xacro:so101_camera parent="gripper_link"/>
+  <xacro:so101_ros2_control use_mock_hardware="$(arg use_mock_hardware)"/>
+</robot>

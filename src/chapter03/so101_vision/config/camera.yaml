@@ -1,0 +1,8 @@
+camera:
+  width: 320
+  height: 240
+  fx: 280.0
+  fy: 280.0
+  cx: 159.5
+  cy: 119.5
+  depth_scale: 1.0  # 本项目合成深度为32FC1米，因此比例为1.0。

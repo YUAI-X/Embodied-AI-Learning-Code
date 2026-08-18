@@ -1,0 +1,47 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+Visualization Manager:
+  Class: ""
+  Global Options:
+    Background Color: 36; 40; 48
+    Fixed Frame: base_link
+    Frame Rate: 30
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Name: Grid
+      Enabled: true
+      Cell Size: 0.05
+      Plane: XY
+    - Class: rviz_default_plugins/RobotModel
+      Name: SO-101 RobotModel
+      Enabled: true
+      Description Topic:
+        Value: /robot_description
+      Visual Enabled: true
+      Collision Enabled: false
+    - Class: rviz_default_plugins/TF
+      Name: TF Tree
+      Enabled: true
+      Frame Timeout: 15
+      Marker Scale: 0.12
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+  Tools:
+    - Class: rviz_default_plugins/Interact
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 0.75
+      Focal Point:
+        X: 0.13
+        Y: 0.0
+        Z: 0.12
+      Pitch: 0.45
+      Yaw: 0.75
+Window Geometry:
+  Width: 1200
+  Height: 800

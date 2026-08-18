@@ -1,0 +1,31 @@
+joint_limits:
+  shoulder_pan:
+    has_velocity_limits: true
+    max_velocity: 0.8
+    has_acceleration_limits: true
+    max_acceleration: 1.5
+  shoulder_lift:
+    has_velocity_limits: true
+    max_velocity: 0.7
+    has_acceleration_limits: true
+    max_acceleration: 1.2
+  elbow_flex:
+    has_velocity_limits: true
+    max_velocity: 0.8
+    has_acceleration_limits: true
+    max_acceleration: 1.5
+  wrist_flex:
+    has_velocity_limits: true
+    max_velocity: 1.0
+    has_acceleration_limits: true
+    max_acceleration: 2.0
+  wrist_roll:
+    has_velocity_limits: true
+    max_velocity: 1.2
+    has_acceleration_limits: true
+    max_acceleration: 2.5
+  gripper:
+    has_velocity_limits: true
+    max_velocity: 1.0
+    has_acceleration_limits: true
+    max_acceleration: 2.0

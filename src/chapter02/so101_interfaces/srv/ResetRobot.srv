@@ -1,0 +1,4 @@
+# 请求复位到 home 姿态。空请求可以突出 Service 的请求—响应模式。
+---
+bool success
+string message

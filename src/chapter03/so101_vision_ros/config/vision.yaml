@@ -1,0 +1,14 @@
+synthetic_rgbd_publisher:
+  ros__parameters:
+    fps: 5.0
+
+rgbd_pointcloud_node:
+  ros__parameters:
+    pixel_stride: 4
+    max_depth_m: 1.2
+
+target_localizer_node:
+  ros__parameters:
+    prompt: "red cup"
+    erosion_pixels: 2
+    output_frame: "base_link"

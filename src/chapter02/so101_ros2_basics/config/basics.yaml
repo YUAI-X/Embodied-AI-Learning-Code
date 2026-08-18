@@ -1,0 +1,9 @@
+move_joints_server:
+  ros__parameters:
+    publish_rate: 30.0
+
+pid_parameter_node:
+  ros__parameters:
+    kp: 3.0
+    ki: 0.0
+    kd: 0.2

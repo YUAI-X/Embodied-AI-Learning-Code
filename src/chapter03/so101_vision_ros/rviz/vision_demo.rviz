@@ -1,0 +1,73 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+Visualization Manager:
+  Class: ""
+  Global Options:
+    Background Color: 36; 40; 48
+    Fixed Frame: base_link
+    Frame Rate: 30
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Name: Grid
+      Enabled: true
+      Cell Size: 0.05
+      Plane: XY
+    - Class: rviz_default_plugins/RobotModel
+      Name: SO101 Robot
+      Enabled: true
+      Description Topic:
+        Value: /robot_description
+      Visual Enabled: true
+      Collision Enabled: false
+    - Class: rviz_default_plugins/TF
+      Name: TF Tree
+      Enabled: true
+      Frame Timeout: 15
+      Marker Scale: 0.08
+      Show Arrows: true
+      Show Axes: true
+      Show Names: false
+    - Class: rviz_default_plugins/PointCloud2
+      Name: RGB-D Scene Cloud
+      Enabled: true
+      Topic:
+        Value: /vision/scene_cloud
+      Size (Pixels): 2
+      Style: Points
+      Color Transformer: FlatColor
+      Color: 130; 160; 210
+    - Class: rviz_default_plugins/PointCloud2
+      Name: Prompt Target Cloud
+      Enabled: true
+      Topic:
+        Value: /vision/target_cloud
+      Size (Pixels): 4
+      Style: Points
+      Color Transformer: FlatColor
+      Color: 255; 80; 60
+    - Class: rviz_default_plugins/Pose
+      Name: Target Pose in Base
+      Enabled: true
+      Topic:
+        Value: /vision/target_pose_base
+      Shape: Axes
+      Axes Length: 0.08
+      Axes Radius: 0.008
+  Tools:
+    - Class: rviz_default_plugins/Interact
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 1.1
+      Focal Point:
+        X: 0.2
+        Y: 0.0
+        Z: 0.2
+      Pitch: 0.45
+      Yaw: 0.75
+Window Geometry:
+  Width: 1280
+  Height: 820
