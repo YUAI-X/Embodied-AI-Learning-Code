@@ -3,6 +3,9 @@ install/
 log/
 .pytest_cache/
 __pycache__/
+.ruff_cache/
+.venv/
+*.egg-info/
 *.pyc
 *.bag
 rosbag2_*/

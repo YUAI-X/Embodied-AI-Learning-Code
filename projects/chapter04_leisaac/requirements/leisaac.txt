@@ -1,0 +1,5 @@
+# 本文件只固定课程直接使用的数据依赖。
+# Isaac Sim、Isaac Lab 与 LeIsaac 请严格按照 README 的上游安装顺序安装。
+numpy==1.26.0
+h5py>=3.8
+lerobot==0.4.2

@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=65", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "so101-leisaac-course"
+version = "0.1.0"
+description = "第4章：基于LeIsaac的SO101仿真数据与LeRobot数据集"
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+license = {text = "Apache-2.0"}
+dependencies = ["numpy==1.26.0", "h5py>=3.8", "lerobot==0.4.2"]
+
+[project.optional-dependencies]
+test = ["pytest>=7", "ruff>=0.4"]
+
+[project.scripts]
+so101-course-check = "so101_leisaac_course.environment:main"
+so101-course-inspect = "so101_leisaac_course.dataset:main"
+so101-course-validate = "so101_leisaac_course.quality:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 99
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]

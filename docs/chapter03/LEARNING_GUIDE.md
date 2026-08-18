@@ -414,7 +414,51 @@ Launch 会启动：
 
 RViz 中应看到官方 SO101 结构、TF、蓝灰色场景点云、红色目标点云和目标 Pose 坐标轴。
 
-### 10.2 分终端检查
+需要注意，RViz 的默认布局用于观察三维结果，不直接显示二维彩色图和深度图。上述 Launch
+默认发布的是课程生成的合成 RGB-D 图像；它是完整的 ROS `Image` 消息，可以正常查看和处理，
+但不是物理摄像头实拍画面。
+
+### 10.2 在新终端查看RGB、深度图和目标Mask
+
+保持 `vision_demo.launch.py` 所在终端运行。打开一个新终端并加载 ROS 2 与工作空间：
+
+```bash
+source /opt/ros/humble/setup.bash
+source ~/so101_ros2_learning_ws/install/setup.bash
+ros2 run rqt_image_view rqt_image_view
+```
+
+`rqt_image_view` 会打开图像窗口。在窗口左上角的话题列表中依次选择：
+
+| 话题 | 显示内容 | 编码 |
+|---|---|---|
+| `/camera/color/image_raw` | 合成彩色图 | `bgr8` |
+| `/camera/depth/image_raw` | 合成深度图 | `32FC1`，单位米 |
+| `/vision/target_mask` | 文本目标对应的二值Mask | `mono8` |
+
+一次选择一个话题即可。彩色图应看到课程生成的桌面目标画面；深度图是按距离着色或灰度化的
+结果；Mask 中目标区域为白色，其余区域为黑色。终端本身只打印节点日志，图像像素需要在
+`rqt_image_view` 窗口中查看。
+
+如果系统提示找不到 `rqt_image_view`，安装后重新打开终端：
+
+```bash
+sudo apt update
+sudo apt install ros-humble-rqt-image-view
+```
+
+若窗口的话题列表为空，先确认 Launch 仍在运行，再检查图像是否持续发布：
+
+```bash
+ros2 topic hz /camera/color/image_raw
+ros2 topic hz /camera/depth/image_raw
+ros2 topic hz /vision/target_mask
+```
+
+默认频率约为 5 Hz。查看真实摄像头画面时，操作工具仍然是 `rqt_image_view`，但需要按照
+第 11 节停用合成发布器并启动真实相机驱动。
+
+### 10.3 分终端检查
 
 另开终端并 source 环境：
 
@@ -432,7 +476,7 @@ ros2 run tf2_ros tf2_echo base_link camera_depth_optical_frame
 `target_pose_base.header.frame_id` 应为 `base_link`。两条消息数值不同是正常现象，说明 TF2
 真正执行了坐标变换。
 
-### 10.3 Launch参数
+### 10.4 Launch参数
 
 ```bash
 ros2 launch so101_vision_ros vision_demo.launch.py \

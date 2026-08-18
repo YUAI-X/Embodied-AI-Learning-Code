@@ -1,0 +1,13 @@
+{
+  "profile": "LeIsaac + Isaac Sim 5.1 teaching profile",
+  "checked_on": "2026-08-18",
+  "python": "3.11",
+  "cuda_toolkit": "12.8",
+  "torch": "2.7.0",
+  "torchvision": "0.22.0",
+  "isaacsim": "5.1.0",
+  "isaaclab": "2.3.0",
+  "lerobot": "0.4.2",
+  "numpy": "1.26.0",
+  "note": "版本来自LeIsaac当前官方安装和Dataset v3转换说明；升级任一组件都要重新回归。"
+}

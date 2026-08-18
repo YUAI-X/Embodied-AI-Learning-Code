@@ -1,10 +1,12 @@
 # SO101 ROS 2机器人课程学习代码
 
-本仓库是机器人课程第2章和第3章的配套项目，以开源 LeRobot SO101 机械臂为统一案例，
-适用于 Ubuntu 22.04、ROS 2 Humble 和 Python 3.10。
+本仓库是机器人课程第2～4章的配套项目，以开源 LeRobot SO101 机械臂为统一案例。
+第2、3章适用于 Ubuntu 22.04、ROS 2 Humble 和 Python 3.10；第4章是独立的
+LeIsaac/Isaac Lab 教学项目，使用 NVIDIA GPU 和 Conda Python 3.11。
 
-核心实验可以使用 Mock Hardware 与合成 RGB-D 完成，不要求机械臂、相机或 GPU。本仓库是
-教学项目，不是真机驱动。
+第2、3章核心实验可使用 Mock Hardware 与合成 RGB-D 完成，不要求机械臂或相机。第4章
+要求完整的 NVIDIA GPU、Isaac Sim、Isaac Lab 与 LeIsaac 环境。本仓库是教学项目，
+不是真机驱动。
 
 ## 文档导航
 
@@ -13,6 +15,8 @@
 | 第2章：机器人学、ROS系统与控制 | [第2章学习指南](docs/chapter02/LEARNING_GUIDE.md) |
 | 第3章：机器人视觉与三维感知 | [第3章学习指南](docs/chapter03/LEARNING_GUIDE.md) |
 | 第3章代码入口 | [第3章README](src/chapter03/README.md) |
+| 第4章：具身智能数据与仿真 | [第4章学习指南](docs/chapter04/LEARNING_GUIDE.md) |
+| 第4章代码入口 | [LeIsaac课程README](projects/chapter04_leisaac/README.md) |
 | Grounding DINO与SAM | [可选模型说明](docs/chapter03/OPTIONAL_MODELS.md) |
 | 常见环境问题 | [故障排查](docs/chapter02/TROUBLESHOOTING.md) |
 
@@ -30,10 +34,13 @@ src/
 └── chapter03/                    视觉与三维感知
     ├── so101_vision/             纯视觉算法
     └── so101_vision_ros/         ROS 2视觉节点
+
+projects/
+└── chapter04_leisaac/            LeIsaac SO101仿真数据闭环项目
 ```
 
-两章分目录存放，但仍属于同一个 colcon 工作空间。第3章直接复用第2章的 SO101 模型、TF
-和 Mock Hardware。
+第2、3章分目录存放，但仍属于同一个colcon工作空间。第3章直接复用第2章的SO101模型、TF
+和 Mock Hardware。第4章位于`projects/`，不参与colcon构建，也不与ROS Python环境混装。
 
 ## 构建
 
