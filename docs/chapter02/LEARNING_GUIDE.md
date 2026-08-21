@@ -5,7 +5,7 @@
 完成一个不依赖真机和 Gazebo 的虚拟抓取—搬运—放置任务。
 
 本章默认采用 TheRobotStudio 官方 SO101 follower new-calibration 结构与 STL。课程代码只在
-外层增加 `tool0`、不可见相机坐标系和 Mock Hardware 接口，不修改官方机械臂外形。
+外层增加 `tool0`、不可见相机坐标系和 Mock Hardware接口，不修改官方机械臂外形。
 
 ## 1. 学习目标与完成标准
 
