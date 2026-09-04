@@ -1,4 +1,6 @@
 """利用深度图和 CameraInfo，把中心像素恢复为相机坐标系三维点。"""
+# 作者：宇哥的具身笔记
+
 
 import rclpy
 from cv_bridge import CvBridge

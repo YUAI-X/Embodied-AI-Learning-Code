@@ -1,4 +1,6 @@
 """在 RViz 中显示教学版 SO-101，并用滑块修改关节角。"""
+# 作者：宇哥的具身笔记
+
 
 from launch import LaunchDescription
 from launch.substitutions import Command, FindExecutable

@@ -1,4 +1,6 @@
 """实验 4.4-A：把 UMI 位姿转换为供 LeIsaac 重定向的相对末端动作。"""
+# 作者：宇哥的具身笔记
+
 
 import argparse
 from pathlib import Path

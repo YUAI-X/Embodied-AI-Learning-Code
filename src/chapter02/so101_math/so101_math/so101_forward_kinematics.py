@@ -1,4 +1,6 @@
 """计算教学版 SO-101 的正运动学。"""
+# 作者：宇哥的具身笔记
+
 
 import argparse
 import numpy as np

@@ -1,4 +1,6 @@
 """发布3.1–3.5共用的合成桌面RGB-D和CameraInfo。"""
+# 作者：宇哥的具身笔记
+
 
 import rclpy
 from cv_bridge import CvBridge

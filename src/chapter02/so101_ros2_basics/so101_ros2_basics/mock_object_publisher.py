@@ -1,4 +1,6 @@
 """在相机光学坐标系中发布一个模拟物体位姿。"""
+# 作者：宇哥的具身笔记
+
 
 import rclpy
 from geometry_msgs.msg import PoseStamped

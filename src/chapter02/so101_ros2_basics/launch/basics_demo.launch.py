@@ -1,4 +1,6 @@
 """同时启动 Action/Service/Topic 与 PID Parameter 教学节点。"""
+# 作者：宇哥的具身笔记
+
 
 from launch import LaunchDescription
 from launch_ros.actions import Node

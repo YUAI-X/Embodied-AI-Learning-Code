@@ -1,4 +1,6 @@
 """3.1 Demo：像素投影、深度反投影与CameraInfo缩放。"""
+# 作者：宇哥的具身笔记
+
 
 import numpy as np
 

@@ -1,4 +1,6 @@
 """3.2 Demo：合成Eye-in-Hand数据并求解AX=XB。"""
+# 作者：宇哥的具身笔记
+
 
 import argparse
 

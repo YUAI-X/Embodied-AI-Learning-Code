@@ -1,4 +1,6 @@
 # so101_tasks：MoveIt 虚拟抓放
+> 作者：宇哥的具身笔记
+
 
 本包用 ROS 2 Humble 的标准 Action 和 Planning Scene 接口，演示官方 SO101 模型的命名姿态、
 碰撞场景、夹爪控制和虚拟抓放。它不依赖 Gazebo 或真机，适合先理解任务流程。

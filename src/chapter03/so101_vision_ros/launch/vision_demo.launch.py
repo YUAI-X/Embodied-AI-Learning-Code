@@ -1,4 +1,6 @@
 """一条命令启动SO101、合成RGB-D、点云和目标定位教学流水线。"""
+# 作者：宇哥的具身笔记
+
 
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription

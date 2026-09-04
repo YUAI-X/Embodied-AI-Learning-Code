@@ -1,4 +1,6 @@
 """使用 TF2 将相机坐标系中的物体位姿转换到 base_link。"""
+# 作者：宇哥的具身笔记
+
 
 import rclpy
 from geometry_msgs.msg import PoseStamped

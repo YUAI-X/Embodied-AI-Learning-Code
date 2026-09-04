@@ -1,4 +1,6 @@
 # so101_description
+> 作者：宇哥的具身笔记
+
 
 该包以 TheRobotStudio 官方 SO-101 follower new-calibration URDF 和 STL 为主体，
 并叠加课程需要的相机坐标系、`tool0` 与 ros2_control Mock Hardware 接口。

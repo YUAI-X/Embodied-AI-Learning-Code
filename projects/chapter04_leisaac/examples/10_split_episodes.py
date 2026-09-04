@@ -1,4 +1,6 @@
 """实验 4.3-F：按完整 LeIsaac episode 切分训练、验证和测试集合。"""
+# 作者：宇哥的具身笔记
+
 
 import argparse
 

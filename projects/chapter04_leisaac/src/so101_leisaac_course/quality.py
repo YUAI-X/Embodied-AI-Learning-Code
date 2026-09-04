@@ -1,4 +1,6 @@
 """检查episode完整性、时间同步、字段维度和动作连续性。"""
+# 作者：宇哥的具身笔记
+
 
 from __future__ import annotations
 

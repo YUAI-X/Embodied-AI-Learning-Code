@@ -1,4 +1,6 @@
 """故意使用 Reliable QoS 订阅 Best Effort 图像，供 QoS 排错实验使用。"""
+# 作者：宇哥的具身笔记
+
 
 import rclpy
 from rclpy.node import Node

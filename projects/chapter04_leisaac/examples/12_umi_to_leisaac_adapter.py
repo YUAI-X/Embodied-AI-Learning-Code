@@ -1,4 +1,6 @@
 """实验 4.4-B：输出用于接入 LeIsaac 重定向与回放的 UMI 中间帧。"""
+# 作者：宇哥的具身笔记
+
 
 import argparse
 import json

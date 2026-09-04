@@ -1,4 +1,6 @@
 """SO-101 位置目标数值 IK。"""
+# 作者：宇哥的具身笔记
+
 
 import argparse
 import numpy as np

@@ -1,4 +1,6 @@
 """3.5 Demo：RANSAC+PnP、评价指标和抓取坐标链。"""
+# 作者：宇哥的具身笔记
+
 
 import argparse
 

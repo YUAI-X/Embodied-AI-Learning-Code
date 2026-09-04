@@ -1,4 +1,6 @@
 """实验 4.2-B：生成 SO101 LiftCube 遥操作与 HDF5 录制命令。"""
+# 作者：宇哥的具身笔记
+
 
 import argparse
 from pathlib import Path

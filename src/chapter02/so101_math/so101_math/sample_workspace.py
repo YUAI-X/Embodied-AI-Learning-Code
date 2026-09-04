@@ -1,4 +1,6 @@
 """随机采样关节角，绘制 SO-101 末端工作空间。"""
+# 作者：宇哥的具身笔记
+
 
 import argparse
 import numpy as np

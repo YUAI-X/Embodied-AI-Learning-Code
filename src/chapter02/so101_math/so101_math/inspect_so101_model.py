@@ -1,4 +1,6 @@
 """从安装后的 Xacro 中读取并打印 SO-101 关节信息。"""
+# 作者：宇哥的具身笔记
+
 
 import subprocess
 import xml.etree.ElementTree as ET

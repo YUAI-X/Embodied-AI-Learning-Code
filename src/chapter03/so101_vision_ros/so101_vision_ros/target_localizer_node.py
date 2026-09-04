@@ -1,4 +1,6 @@
 """文本颜色目标→Mask→目标点云→Camera/Base Frame Pose。"""
+# 作者：宇哥的具身笔记
+
 
 import rclpy
 from cv_bridge import CvBridge

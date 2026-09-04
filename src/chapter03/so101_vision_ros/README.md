@@ -1,4 +1,6 @@
 # so101_vision_ros
+> 作者：宇哥的具身笔记
+
 
 第3章 ROS 2集成包，负责把 `so101_vision` 算法接入标准相机消息、时间同步、PointCloud2、
 TF2 和 RViz。

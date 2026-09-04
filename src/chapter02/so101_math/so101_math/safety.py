@@ -1,4 +1,6 @@
 """关节 Action 的基础安全检查。"""
+# 作者：宇哥的具身笔记
+
 
 from dataclasses import dataclass
 import numpy as np

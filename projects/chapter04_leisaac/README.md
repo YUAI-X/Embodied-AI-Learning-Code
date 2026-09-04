@@ -1,4 +1,6 @@
 # 第4章：用 LeIsaac 完成 SO101 仿真数据闭环
+> 作者：宇哥的具身笔记
+
 
 本项目只讲一条主线：在 NVIDIA GPU 环境中运行开源 LeIsaac 的
 `LeIsaac-SO101-LiftCube-v0`，完成遥操作、HDF5 录制、仿真回放、LeRobot Dataset v3

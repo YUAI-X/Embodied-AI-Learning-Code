@@ -1,6 +1,8 @@
 import os
 from glob import glob
 from setuptools import find_packages, setup
+# 作者：宇哥的具身笔记
+
 
 package_name = "so101_tasks"
 

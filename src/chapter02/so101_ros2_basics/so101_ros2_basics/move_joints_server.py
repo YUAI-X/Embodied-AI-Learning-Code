@@ -1,4 +1,6 @@
 """用于讲解 ROS 2 Action 的模拟关节控制器。"""
+# 作者：宇哥的具身笔记
+
 
 import asyncio
 import numpy as np

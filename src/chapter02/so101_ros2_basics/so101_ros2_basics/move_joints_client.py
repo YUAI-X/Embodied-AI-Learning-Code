@@ -1,4 +1,6 @@
 """发送 MoveJoints Goal，并打印 Action Feedback 和 Result。"""
+# 作者：宇哥的具身笔记
+
 
 import argparse
 import rclpy

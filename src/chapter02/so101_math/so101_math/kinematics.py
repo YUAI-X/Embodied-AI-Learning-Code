@@ -1,4 +1,6 @@
 """SO-101 教学运动学工具。
+# 作者：宇哥的具身笔记
+
 
 这里使用官方 new-calibration URDF 的 joint origin、RPY 和 axis。代码刻意只依赖
 NumPy，方便学员把齐次变换与 URDF 逐项对应起来。

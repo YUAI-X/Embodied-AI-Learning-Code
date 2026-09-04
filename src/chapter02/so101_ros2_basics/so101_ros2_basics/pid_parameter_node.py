@@ -1,4 +1,6 @@
 """演示如何把 2.1 的 PID 参数放进 ROS 2 Parameter。"""
+# 作者：宇哥的具身笔记
+
 
 import rclpy
 from rcl_interfaces.msg import SetParametersResult

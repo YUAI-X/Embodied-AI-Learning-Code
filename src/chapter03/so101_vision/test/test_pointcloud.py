@@ -1,5 +1,7 @@
 import cv2
 import numpy as np
+# 作者：宇哥的具身笔记
+
 
 from so101_vision.pointcloud import (
     icp_point_to_point,

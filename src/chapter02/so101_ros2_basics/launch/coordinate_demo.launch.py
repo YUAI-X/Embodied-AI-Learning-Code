@@ -1,4 +1,6 @@
 """使用静态 TF 演示相机位姿到机器人基座的转换。"""
+# 作者：宇哥的具身笔记
+
 
 from launch import LaunchDescription
 from launch_ros.actions import Node

@@ -1,4 +1,6 @@
 """启动合成 RGB-D、同步和深度像素转三维点节点。"""
+# 作者：宇哥的具身笔记
+
 
 from launch import LaunchDescription
 from launch_ros.actions import Node

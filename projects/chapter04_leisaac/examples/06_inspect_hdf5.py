@@ -1,4 +1,6 @@
 """实验 4.3-B：只读查看 LeIsaac HDF5 中的 episode、观测与动作数组。"""
+# 作者：宇哥的具身笔记
+
 
 import argparse
 from pathlib import Path

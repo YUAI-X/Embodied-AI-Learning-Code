@@ -1,4 +1,6 @@
 """二维二连杆 FK/IK：先建立直觉，再进入 SO-101 五关节计算。"""
+# 作者：宇哥的具身笔记
+
 
 import argparse
 import math

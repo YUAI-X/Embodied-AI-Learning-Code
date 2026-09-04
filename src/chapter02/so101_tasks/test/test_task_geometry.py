@@ -1,4 +1,6 @@
 import numpy as np
+# 作者：宇哥的具身笔记
+
 
 from so101_tasks.task_geometry import (
     NAMED_POSES,

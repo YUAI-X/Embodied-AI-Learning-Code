@@ -1,4 +1,6 @@
 """ros2_control GripperActionController 的简洁 Python 客户端。"""
+# 作者：宇哥的具身笔记
+
 
 import rclpy
 from control_msgs.action import GripperCommand

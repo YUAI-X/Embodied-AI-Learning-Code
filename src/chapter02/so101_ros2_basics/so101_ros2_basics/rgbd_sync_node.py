@@ -1,4 +1,6 @@
 """近似同步 RGB 和深度图，演示时间戳与队列。"""
+# 作者：宇哥的具身笔记
+
 
 import rclpy
 from cv_bridge import CvBridge

@@ -1,4 +1,6 @@
 """向 MoveIt Planning Scene 添加、附着和分离教学物体。"""
+# 作者：宇哥的具身笔记
+
 
 import rclpy
 from geometry_msgs.msg import Pose

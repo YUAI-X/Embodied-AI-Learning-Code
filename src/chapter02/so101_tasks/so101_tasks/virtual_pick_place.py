@@ -1,4 +1,6 @@
 """章末任务：无 Gazebo、无真机的 SO-101 虚拟抓放。"""
+# 作者：宇哥的具身笔记
+
 
 import time
 import rclpy

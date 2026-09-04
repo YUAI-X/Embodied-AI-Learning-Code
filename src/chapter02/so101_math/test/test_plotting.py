@@ -1,4 +1,6 @@
 from matplotlib import rcParams
+# 作者：宇哥的具身笔记
+
 
 from so101_math.plotting import configure_chinese_font
 

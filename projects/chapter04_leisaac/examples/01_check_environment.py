@@ -1,4 +1,6 @@
 """实验 4.0：确认完整 LeIsaac GPU 环境和上游源码均已就绪。"""
+# 作者：宇哥的具身笔记
+
 
 import argparse
 from pathlib import Path

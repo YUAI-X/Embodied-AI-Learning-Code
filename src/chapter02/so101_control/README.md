@@ -1,4 +1,6 @@
 # so101_control
+> 作者：宇哥的具身笔记
+
 
 启动不依赖 Gazebo 的 ros2_control Mock Hardware：
 

@@ -1,4 +1,6 @@
 """实验 4.3-E：检查 LeIsaac Dataset v3 的时间、索引、维度和动作连续性。"""
+# 作者：宇哥的具身笔记
+
 
 import argparse
 from pathlib import Path

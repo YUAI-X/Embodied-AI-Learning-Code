@@ -1,4 +1,6 @@
 """移动到 task_geometry.py 中定义的任一教学姿态。"""
+# 作者：宇哥的具身笔记
+
 
 import argparse
 import rclpy

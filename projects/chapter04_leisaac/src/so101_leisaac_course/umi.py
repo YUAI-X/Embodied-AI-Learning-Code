@@ -1,4 +1,6 @@
 """解析简化UMI轨迹并生成相对末端动作。"""
+# 作者：宇哥的具身笔记
+
 
 from __future__ import annotations
 

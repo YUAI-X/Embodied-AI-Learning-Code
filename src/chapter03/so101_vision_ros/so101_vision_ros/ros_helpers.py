@@ -1,4 +1,6 @@
 """ROS消息与第三章NumPy数据之间的薄适配层。"""
+# 作者：宇哥的具身笔记
+
 
 from geometry_msgs.msg import PoseStamped
 from sensor_msgs.msg import CameraInfo

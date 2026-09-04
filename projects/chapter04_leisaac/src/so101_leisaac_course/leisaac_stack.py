@@ -1,4 +1,6 @@
 """把容易混淆的名词放回 LeIsaac 实际运行链路中解释。"""
+# 作者：宇哥的具身笔记
+
 
 from __future__ import annotations
 

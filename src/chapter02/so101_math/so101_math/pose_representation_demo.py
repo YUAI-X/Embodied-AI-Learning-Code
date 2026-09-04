@@ -1,4 +1,6 @@
 """演示旋转矩阵、齐次变换、欧拉角和四元数之间的关系。"""
+# 作者：宇哥的具身笔记
+
 
 import numpy as np
 from .kinematics import axis_angle_matrix, translation_matrix

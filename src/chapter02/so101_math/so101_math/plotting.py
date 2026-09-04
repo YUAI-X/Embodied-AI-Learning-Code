@@ -1,4 +1,6 @@
 """Matplotlib中文字体配置，避免坐标轴和标题显示为方框。"""
+# 作者：宇哥的具身笔记
+
 
 from matplotlib import font_manager, rcParams
 

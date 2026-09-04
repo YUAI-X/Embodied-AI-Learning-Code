@@ -1,4 +1,6 @@
 """通过一个简化关节模型直观看懂 Kp、Ki、Kd 的作用。"""
+# 作者：宇哥的具身笔记
+
 
 import argparse
 import numpy as np

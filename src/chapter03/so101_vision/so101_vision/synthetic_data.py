@@ -1,4 +1,6 @@
 """生成无需相机和下载数据集即可运行的RGB-D与桌面点云。"""
+# 作者：宇哥的具身笔记
+
 
 import cv2
 import numpy as np

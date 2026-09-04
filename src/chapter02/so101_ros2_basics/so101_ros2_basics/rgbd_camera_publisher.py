@@ -1,4 +1,6 @@
 """发布同步的合成 RGB、深度图和 CameraInfo。
+# 作者：宇哥的具身笔记
+
 
 默认不连接真实相机，便于所有学员学习 sensor_msgs/Image、encoding、时间戳和 QoS。
 """

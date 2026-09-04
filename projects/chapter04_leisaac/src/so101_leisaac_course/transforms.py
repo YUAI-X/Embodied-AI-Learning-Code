@@ -1,4 +1,6 @@
 """UMI实验使用的SE(3)齐次变换，不依赖ROS TF。"""
+# 作者：宇哥的具身笔记
+
 
 from __future__ import annotations
 

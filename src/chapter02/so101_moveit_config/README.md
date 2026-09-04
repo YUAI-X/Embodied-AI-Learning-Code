@@ -1,4 +1,6 @@
 # so101_moveit_config
+> 作者：宇哥的具身笔记
+
 
 ```bash
 ros2 launch so101_moveit_config demo.launch.py

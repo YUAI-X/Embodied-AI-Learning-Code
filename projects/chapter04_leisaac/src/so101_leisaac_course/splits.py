@@ -1,4 +1,6 @@
 """按episode切分训练/验证/测试集，防止相邻帧泄漏。"""
+# 作者：宇哥的具身笔记
+
 
 from __future__ import annotations
 

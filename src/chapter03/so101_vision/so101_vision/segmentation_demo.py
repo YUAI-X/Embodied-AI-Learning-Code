@@ -1,4 +1,6 @@
 """3.4 Demo：文本目标→Mask→目标三维点云。"""
+# 作者：宇哥的具身笔记
+
 
 import argparse
 

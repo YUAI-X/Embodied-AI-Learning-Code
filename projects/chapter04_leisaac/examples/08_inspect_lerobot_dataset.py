@@ -1,4 +1,6 @@
 """实验 4.3-D：读取 LeIsaac 转换后 Dataset v3 的 info.json。"""
+# 作者：宇哥的具身笔记
+
 
 import argparse
 from pathlib import Path

@@ -1,4 +1,6 @@
 """用 rclpy 直接调用 MoveIt 2 的标准 MoveGroup Action。
+# 作者：宇哥的具身笔记
+
 
 ROS 2 Humble 的官方入门接口以 C++ 为主。本辅助类把较长的消息构造封装起来，同时保留
 Action 的 Goal/Result 结构，便于和 2.4 的知识衔接。

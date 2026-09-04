@@ -1,4 +1,6 @@
 """SO-101 MoveIt 2 + ros2_control Mock Hardware 一键启动。"""
+# 作者：宇哥的具身笔记
+
 
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument

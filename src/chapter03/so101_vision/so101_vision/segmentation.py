@@ -1,4 +1,6 @@
 """3.4 轻量文本颜色检测、Mask与深度融合。"""
+# 作者：宇哥的具身笔记
+
 
 import cv2
 import numpy as np

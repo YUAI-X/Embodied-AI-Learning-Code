@@ -1,5 +1,7 @@
 import numpy as np
 from so101_math.kinematics import forward_kinematics, solve_position_ik
+# 作者：宇哥的具身笔记
+
 
 
 def test_fk_returns_homogeneous_matrix():

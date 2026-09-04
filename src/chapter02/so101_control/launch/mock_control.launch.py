@@ -1,4 +1,6 @@
 """启动 SO-101 GenericSystem、状态广播器和两个位置控制器。"""
+# 作者：宇哥的具身笔记
+
 
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument

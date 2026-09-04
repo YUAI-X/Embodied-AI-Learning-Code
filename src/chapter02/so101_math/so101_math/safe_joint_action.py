@@ -1,4 +1,6 @@
 """演示 Action 在进入控制器前为什么要经过安全过滤。"""
+# 作者：宇哥的具身笔记
+
 
 import numpy as np
 from .kinematics import JOINT_NAMES

@@ -1,4 +1,6 @@
 """只读打印 LeIsaac 遥操作录制得到的 Isaac Lab HDF5 结构。"""
+# 作者：宇哥的具身笔记
+
 
 from __future__ import annotations
 

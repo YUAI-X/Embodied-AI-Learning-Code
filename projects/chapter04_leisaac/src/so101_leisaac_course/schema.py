@@ -1,4 +1,6 @@
 """读取和校验LeRobot Dataset的核心元信息。"""
+# 作者：宇哥的具身笔记
+
 
 from __future__ import annotations
 
