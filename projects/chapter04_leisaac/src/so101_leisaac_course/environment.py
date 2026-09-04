@@ -1,4 +1,6 @@
 """检查 LeIsaac 课程所需的完整 NVIDIA GPU 软件栈。"""
+# 作者：宇哥的具身笔记
+
 
 from __future__ import annotations
 
@@ -28,6 +30,7 @@ LEISAAC_PROFILE = {
     "torch": "2.7.0",
     "cuda": "12.8",
     "lerobot": "0.4.2",
+    "leisaac": "0.4.0",
     "numpy": "1.26.0",
 }
 
@@ -81,6 +84,8 @@ def check_leisaac_root(root: Path) -> list[CheckResult]:
         "遥操作录制脚本": "scripts/environments/teleoperation/teleop_se3_agent.py",
         "HDF5 回放脚本": "scripts/environments/teleoperation/replay.py",
         "Dataset v3 转换脚本": "scripts/convert/isaaclab2lerobotv3.py",
+        "状态机数据生成脚本": "scripts/datagen/state_machine/generate.py",
+        "PickOrange状态机": "source/leisaac/leisaac/datagen/state_machine/pick_orange.py",
     }
     return [
         CheckResult(name, (resolved / relative).is_file(), str(resolved / relative))

@@ -1,14 +1,19 @@
 """安全构造LeIsaac官方脚本命令，不在库函数中启动仿真。"""
+# 作者：宇哥的具身笔记
+
 
 from __future__ import annotations
 
+import shlex
 from dataclasses import dataclass
 from pathlib import Path
-import shlex
 
 
 COURSE_TASK = "LeIsaac-SO101-LiftCube-v0"
+STATE_MACHINE_TASK = "LeIsaac-SO101-PickOrange-v0"
 TELEOP_DEVICES = ("keyboard", "gamepad", "so101leader")
+DATASET_TASK_TYPES = (*TELEOP_DEVICES, "so101_state_machine")
+SUPPORTED_DATASET_TASKS = (COURSE_TASK, STATE_MACHINE_TASK)
 
 
 @dataclass(frozen=True)
@@ -69,9 +74,9 @@ class LeIsaacCommandBuilder:
         """构造HDF5→LeRobot Dataset v3命令，默认不上传Hub。"""
         if "/" not in repo_id:
             raise ValueError("repo_id应采用namespace/name形式")
-        if task != COURSE_TASK:
-            raise ValueError(f"本章只使用任务：{COURSE_TASK}")
-        if task_type not in TELEOP_DEVICES:
+        if task not in SUPPORTED_DATASET_TASKS:
+            raise ValueError(f"不支持的数据集任务：{task}")
+        if task_type not in DATASET_TASK_TYPES:
             raise ValueError(f"未知的录制设备：{task_type}")
         return [
             self.python,
@@ -83,7 +88,7 @@ class LeIsaacCommandBuilder:
             f"--hdf5_files={dataset_file.name}",
             "--device=cuda",
             "--enable_cameras",
-            *([f"--task_type={task_type}"] if task_type in {"keyboard", "gamepad"} else []),
+            *([f"--task_type={task_type}"] if task_type != "so101leader" else []),
         ]
 
     def replay(
@@ -93,9 +98,9 @@ class LeIsaacCommandBuilder:
         task_type: str = "keyboard",
     ) -> list[str]:
         """构造录制后回放命令，先回放再转换可发现大量采集问题。"""
-        if task != COURSE_TASK:
-            raise ValueError(f"本章只使用任务：{COURSE_TASK}")
-        if task_type not in TELEOP_DEVICES:
+        if task not in SUPPORTED_DATASET_TASKS:
+            raise ValueError(f"不支持的数据集任务：{task}")
+        if task_type not in DATASET_TASK_TYPES:
             raise ValueError(f"未知的录制设备：{task_type}")
         command = [
             self.python,
@@ -105,8 +110,82 @@ class LeIsaacCommandBuilder:
             "--device=cuda",
             "--enable_cameras",
         ]
-        if task_type in {"keyboard", "gamepad"}:
+        if task_type != "so101leader":
             command.append(f"--task_type={task_type}")
+        return command
+
+    def state_machine_generate(
+        self,
+        dataset_file: Path = Path("datasets/pick_orange_state_machine.hdf5"),
+        task: str = STATE_MACHINE_TASK,
+        num_demos: int = 50,
+        num_envs: int = 1,
+        step_hz: int = 60,
+        seed: int | None = 42,
+        resume: bool = False,
+        headless: bool = False,
+        quality: bool = False,
+        lerobot_repo_id: str | None = None,
+        lerobot_fps: int = 30,
+        camera_width: int = 640,
+        camera_height: int = 480,
+        orange_index: int | None = 1,
+    ) -> list[str]:
+        """构造上游状态机合成命令。
+
+        当前 LeIsaac 的 ``TASK_REGISTRY`` 只注册 PickOrange 状态机，因此这里使用
+        严格白名单，避免传入 LiftCube 后启动 Isaac Sim 很久才报错。有限的
+        ``num_demos`` 也可防止课程命令意外无限运行；上游脚本原生支持 0 表示无限。
+        """
+        if task != STATE_MACHINE_TASK:
+            raise ValueError(f"当前上游状态机只支持任务：{STATE_MACHINE_TASK}")
+        if num_demos < 1:
+            raise ValueError("num_demos必须为正整数；课程入口不允许无限录制")
+        if num_envs < 1:
+            raise ValueError("num_envs必须为正整数")
+        if step_hz < 1:
+            raise ValueError("step_hz必须为正整数")
+        if dataset_file.suffix.lower() not in {".hdf5", ".h5"}:
+            raise ValueError("状态机默认录制HDF5，输出文件应使用.hdf5或.h5后缀")
+        if lerobot_repo_id is not None and "/" not in lerobot_repo_id:
+            raise ValueError("LeRobot repo_id应采用namespace/name形式")
+        if lerobot_fps < 1 or camera_width < 1 or camera_height < 1:
+            raise ValueError("LeRobot fps和相机尺寸必须为正整数")
+        if orange_index not in {None, 1, 2, 3}:
+            raise ValueError("orange_index只能是1、2、3或None")
+
+        command = [
+            self.python,
+            self._script("scripts/datagen/state_machine/generate.py"),
+            f"--task={task}",
+            f"--num_envs={num_envs}",
+            "--device=cuda",
+            "--enable_cameras",
+            "--record",
+            f"--dataset_file={dataset_file}",
+            f"--num_demos={num_demos}",
+            f"--step_hz={step_hz}",
+        ]
+        if seed is not None:
+            command.append(f"--seed={seed}")
+        if resume:
+            command.append("--resume")
+        if headless:
+            command.append("--headless")
+        if quality:
+            command.append("--quality")
+        if orange_index is not None:
+            command.append(f"--orange_index={orange_index}")
+        if lerobot_repo_id is not None:
+            command.extend(
+                [
+                    "--use_lerobot_recorder",
+                    f"--lerobot_dataset_repo_id={lerobot_repo_id}",
+                    f"--lerobot_dataset_fps={lerobot_fps}",
+                    f"--camera_width={camera_width}",
+                    f"--camera_height={camera_height}",
+                ]
+            )
         return command
 
 
