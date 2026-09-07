@@ -2,12 +2,120 @@
 > 作者：宇哥的具身笔记
 
 
-本项目只讲一条主线：在 NVIDIA GPU 环境中运行开源 LeIsaac 的
-`LeIsaac-SO101-LiftCube-v0`，完成遥操作、HDF5 录制、仿真回放、LeRobot Dataset v3
-转换和数据质量检查，不扩展其他仿真器路线。
+本项目以“快速得到可训练数据”为主线：使用 PickOrange 状态机合成 HDF5 轨迹，检查并
+回放原始数据，再转换成 LeRobot Dataset v3，最后完成结构校验和可视化。LiftCube
+遥操作保留为理解人工示范录制的对照实验；不扩展其他仿真器路线，也不宣称 LiftCube
+已有状态机实现。
 
 项目不是 ROS 2 包：它没有 `package.xml`，放在 `projects/` 下，不参与 `colcon build`。
 第2、3章继续使用 ROS Humble 环境；本章必须使用独立的 Python 3.11 Conda 环境。
+
+## 0. 学员快速上手：合成 2 集并转换格式
+
+第一次学习只完成下面六步。跑通 2 个 episode 后，再阅读后文理解参数、扩大数据量。
+
+```text
+确认环境与 LeIsaac 根目录
+  → 合成 2 个 PickOrange episode
+  → 检查 HDF5 结构
+  → 回放确认物理行为
+  → 转换为 LeRobot Dataset v3
+  → 校验并可视化 episode
+```
+
+### 第一步：进入正确环境并设置源码路径
+
+```bash
+conda activate leisaac
+cd /你的代码仓/projects/chapter04_leisaac
+
+# 改成你机器上 LeIsaac 的真实绝对路径，不要照抄示例路径。
+export LEISAAC_ROOT=/你的实际路径/leisaac
+test -f "$LEISAAC_ROOT/scripts/datagen/state_machine/generate.py"
+```
+
+`test` 没有输出且退出码为 0 才表示路径正确。若报“找不到 LeIsaac 官方脚本”，先修正
+`LEISAAC_ROOT`，不要复制或移动上游脚本。
+
+为避免 Python 3.10 的用户级包污染当前 Python 3.11 环境，建议继续执行：
+
+```bash
+unset PYTHONPATH
+export PYTHONNOUSERSITE=1
+python -c "import sys, numpy; print(sys.version); print(numpy.__version__, numpy.__file__)"
+```
+
+本章锁定 NumPy 1.26.0，路径应位于当前 Conda 环境内，而不是 `~/.local/lib/python3.10`。
+
+### 第二步：合成 2 个 PickOrange episode
+
+```bash
+python examples/13_generate_pick_orange_state_machine.py \
+  --leisaac-root "$LEISAAC_ROOT" \
+  --dataset datasets/pick_orange_2episodes.hdf5 \
+  --num-demos 2 \
+  --num-envs 1 \
+  --seed 42 \
+  --camera-width 640 \
+  --camera-height 480 \
+  --orange-index 1
+```
+
+样例 13 **只生成并打印 LeIsaac 官方命令，不会直接录制**。复制终端打印的完整命令再执行，
+Isaac Sim 才会启动并生成 HDF5。第一次保留窗口；确认运动正常后，批量合成再加
+`--headless`。
+
+每个仿真步骤都有两层命令：先运行课程入口得到命令，再运行它打印的上游命令。下文用
+“生成命令”和“执行打印命令”区分这两层，避免把打印成功误认为数据生成成功。
+
+如果目标文件已经存在，先改文件名；只有确认要续录时才使用 `--resume`。`--num-demos 2`
+表示文件中的目标成功示范总数为 2，不是额外追加 2 个。
+
+### 第三步：检查并回放 HDF5
+
+```bash
+python examples/06_inspect_hdf5.py datasets/pick_orange_2episodes.hdf5
+
+python examples/05_replay_hdf5.py \
+  --leisaac-root "$LEISAAC_ROOT" \
+  --task LeIsaac-SO101-PickOrange-v0 \
+  --record-device so101_state_machine \
+  datasets/pick_orange_2episodes.hdf5
+```
+
+样例 05 同样先打印上游命令，需要复制打印结果并执行。至少检查 episode 数、数组长度、
+相机数据、抓取是否成功，以及状态机动作能否按 `so101_state_machine` 正确回放。
+
+### 第四步：转换为 LeRobot Dataset v3
+
+```bash
+python examples/07_convert_to_lerobot_v3.py \
+  --leisaac-root "$LEISAAC_ROOT" \
+  --task LeIsaac-SO101-PickOrange-v0 \
+  --record-device so101_state_machine \
+  --repo-id local/so101_pick_orange_2episodes \
+  --fps 30 \
+  datasets/pick_orange_2episodes.hdf5
+```
+
+样例 07 仍是命令生成器。复制并执行打印出的官方转换命令。转换不是改文件后缀，而是把
+HDF5 episode 重组为 `meta/`、`data/` 和 `videos/`，生成可被 LeRobot 读取的数据合同。
+
+### 第五步：校验并可视化
+
+根据转换命令的输出找到包含 `meta/info.json` 的 Dataset 根目录：
+
+```bash
+python examples/08_inspect_lerobot_dataset.py /实际/Dataset根目录
+python examples/09_validate_lerobot_dataset.py /实际/Dataset根目录 \
+  --repo-id local/so101_pick_orange_2episodes
+python examples/14_visualize_lerobot_dataset.py /实际/Dataset根目录 \
+  --repo-id local/so101_pick_orange_2episodes \
+  --episode 0
+```
+
+看到 `meta/info.json`、Parquet、任务实际配置的相机视频，且样例 09 没有 error，才算完成格式转换。
+warning 需要结合 HDF5 回放和 Rerun 时间轴判断，不能直接忽略。
 
 ## 1. LeIsaac 主线与名词对应
 
@@ -34,7 +142,7 @@ NVIDIA GPU
 ```text
 chapter04_leisaac/
 ├── configs/compatibility.json       课程锁定的完整 GPU 版本组合
-├── examples/01...12                 按学习顺序排列的入口
+├── examples/01...14                 按学习顺序排列的入口
 ├── requirements/leisaac.txt         数据读取和转换依赖
 ├── samples/umi_episode.json         UMI→LeIsaac 适配概念样例
 ├── src/so101_leisaac_course/        命令构造、读取、质检和坐标变换
@@ -94,7 +202,7 @@ python examples/01_check_environment.py --leisaac-root ~/third_party/leisaac
 每一项都是必需项。脚本还会实际检查 `torch.cuda.is_available()`，并确认任务枚举、遥操作、
 回放和 v3 转换脚本存在。
 
-## 4. 十二个递进样例
+## 4. 十四个递进样例
 
 样例 03～07 默认打印经过 shell 转义的上游命令，便于先理解参数再复制执行。所有仿真命令
 都明确使用 `--device=cuda` 和 `--enable_cameras`。
@@ -113,8 +221,14 @@ python examples/01_check_environment.py --leisaac-root ~/third_party/leisaac
 | 10 | episode 切分 | 防止同段 LiftCube 轨迹泄漏到不同集合 |
 | 11 | UMI 相对动作 | 得到等待 LeIsaac 重定向的末端动作 |
 | 12 | UMI 中间帧 | 明确其仍须在 LeIsaac 中回放验证 |
+| 13 | 状态机合成 | 调用上游 PickOrange 状态机批量生成 HDF5 轨迹 |
+| 14 | Dataset 可视化 | 用 Rerun 同步查看相机、关节状态和动作 |
 
-## 5. 从任务到 Dataset v3
+## 5. 对照路线：LiftCube 人工遥操作到 Dataset v3
+
+本节用于理解“人工动作如何被录制”，不是状态机合成主线。只想跑通自动合成闭环的学员可
+跳到第 8 节；HDF5 检查、回放和转换工具对两条路线通用，但 `--task` 与
+`--record-device` 必须和数据来源成对匹配。
 
 先确认任务已注册：
 
@@ -207,5 +321,61 @@ python -m ruff check src tests examples
 - Isaac Sim 启动后黑屏或相机为空：确认命令包含 `--enable_cameras`，并检查驱动兼容性。
 - 回放时夹爪和方块错位：优先排查 task 名、HDF5 来源、坐标系和录制时的环境版本。
 - Dataset 帧数不符：检查录制过程中是否错误中断，再查看 HDF5 episode 结构。
+
+## 8. 主线详解：状态机批量合成 PickOrange 数据
+
+LeIsaac 0.4.0 的状态机注册表当前只包含 `LeIsaac-SO101-PickOrange-v0`。它不是从已有
+示范做 MimicGen 扩增，而是用确定的抓取阶段程序主动控制机器人，在带有环境随机化的
+仿真中重复执行并录制轨迹。
+
+先打印一条小规模、有窗口的验收命令：
+
+```bash
+python examples/13_generate_pick_orange_state_machine.py \
+  --leisaac-root "$LEISAAC_ROOT" \
+  --dataset datasets/pick_orange_2episodes.hdf5 \
+  --num-demos 2 \
+  --seed 42
+```
+
+复制打印出的命令执行。确认 2 个 episode、相机画面和夹放行为正常后，再扩大规模：
+
+```bash
+python examples/13_generate_pick_orange_state_machine.py \
+  --leisaac-root "$LEISAAC_ROOT" \
+  --dataset datasets/pick_orange_state_machine.hdf5 \
+  --num-demos 50 \
+  --seed 42 \
+  --headless
+```
+
+如果进程中断并且目标文件有效，可追加 `--resume`；不要在没有该参数时覆盖已有文件。
+`--num-envs` 控制并行环境数，首次验收保持 1。`--step-hz` 默认 60，它是仿真控制频率，
+不是最终 LeRobot 数据集的 fps。输出完成后至少执行：
+
+```bash
+python examples/06_inspect_hdf5.py datasets/pick_orange_state_machine.hdf5
+python examples/05_replay_hdf5.py \
+  --leisaac-root "$LEISAAC_ROOT" \
+  --task LeIsaac-SO101-PickOrange-v0 \
+  --record-device so101_state_machine \
+  datasets/pick_orange_state_machine.hdf5
+```
+
+随后应使用相同任务和上游版本抽样回放，检查每个 episode 的成功状态。状态机脚本的
+`--num-demos` 是成功示范目标计数，但 HDF5 录制器配置和上游版本会影响失败 episode 是否
+留在文件中。先查看 HDF5 中是否存在成功/终止字段；若当前版本没有可依赖的成功字段，就把
+逐集回放抽检结果作为筛选依据，不要假设某个固定键名一定存在。
+
+转换时同样必须显式保留状态机动作语义：
+
+```bash
+python examples/07_convert_to_lerobot_v3.py \
+  --leisaac-root "$LEISAAC_ROOT" \
+  --task LeIsaac-SO101-PickOrange-v0 \
+  --record-device so101_state_machine \
+  --repo-id local/so101_pick_orange_state_machine \
+  datasets/pick_orange_state_machine.hdf5
+```
 
 更细的逐步说明见 [第4章详细学习文档](../../docs/chapter04/LEARNING_GUIDE.md)。
